@@ -100,8 +100,6 @@ colours = sns.color_palette('tab10', 10) # Set the colors
 
 #### READING THE NETWORK
 
-#with open("LGD_FDiN_AllAtributes_ForDash.pickle", 'rb') as f:
-#    FDiN = pickle.load(f)
 FDiN = pickle.loads(base64.b64decode(graph))
 all_ranks= pd.DataFrame(pd.Series(nx.get_node_attributes(FDiN, 'FDiGNN Rank')), columns=[0]).sort_values(by=0)
 in_knowledge = pd.Series(nx.get_node_attributes(FDiN, 'In Knowledge'))
@@ -249,9 +247,8 @@ pn.extension('cytoscape', sizing_mode='stretch_width')
 # Set up the description section of the page
 node_desc = pn.Column('Placeholder')
 comp_desc = pn.Column('Placeholder')
-download_desc = pn.Column('Placeholder')
 
-sup_section = pn.Column('# Information', node_desc, comp_desc, download_desc)
+sup_section = pn.Column('# Information', node_desc, comp_desc)
 
 # Transform FDiN into Cytoscape data
 cs_data = nx.cytoscape_data(FDiN)
@@ -473,7 +470,7 @@ def _update_layout_style(top_chosen, pathway):
         comp_desc.pop(-1)
     comp_desc.append(pn.pane.HTML(''.join(construct_string)))
 
-    # Update in order to update layout
+    # Update layout
     graph.object = cs_data["elements"]["nodes"] + cs_data["elements"]["edges"]
     graph.style = [{'selector': 'node',
                 'style': {'label': 'data(cname)',
@@ -538,25 +535,6 @@ def displayTapNodeData(sel_nodes):
         node_desc.append(pn.pane.Matplotlib(fig, dpi=300, height=250))
         node_desc.append(pn.pane.HTML(''.join(node_pres)))
 
-
-# Save Button Section
-download_icon = '''<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-download" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-   <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-   <path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2"></path>
-   <path d="M7 11l5 5l5 -5"></path>
-   <path d="M12 4l0 12"></path>
-</svg>'''
-# Widget to save graph
-save_graph_button = pn.widgets.Button(name='Save current graph view as a png', button_type='success',
-                                         icon=download_icon)
-# When pressing the button, downloads the figure
-def _save_graph_button(event):
-    "Save Graph."
-    graph_section[1].save('test.png')
-    pn.state.notifications.success(f'Graph successfully saved.')
-save_graph_button.on_click(_save_graph_button)
-
-download_desc[0] = save_graph_button
 
 
 # Setting the Graph Section of the page
