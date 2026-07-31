@@ -1,13 +1,26 @@
 # Revealing Important Metabolic Subnetworks Through Impact in Class Probabilities of Graph Neural Network Classifiers
 
-Reproducible (as possible) code for the paper 'Revealing Important Metabolic Subnetworks Through Impact in Class Probabilities of Graph Neural Network Classifiers' for the development and validation of the Formula-Difference Graph Neural Networks (FDiGNN) approach.
+Reproducible (as possible) code for the paper 'Revealing Important Metabolic Subnetworks Through Impact in Class Probabilities of Graph Neural Network Classifiers' for the development and validation of the Formula-Difference Graph Neural Networks (FDiGNN) approach. **Warning: Updated notebooks will be added soon to show the newly made analysis made upon paper peer-review.**
 
 Here we present the code used to obtain the different results (including supplementary material and a few extra) presented in the aformentioned paper. Here, we explain the organization of the git-hub repository, what is present in each of the files shown here, the already stored results and what we recommend to do to either re-run the analysis or obtain as similar results as possible to the ones presented.
 
-### Neccessary Python Requirements
+### Requirements
 
 The file `requirements.txt` contains all packages used and can be used to create a python environment to run the Python code in this package (instructions in the first 3 lines of the file).
 
+Major Python packages required include:
+
+- pandas
+- numpy
+- scipy
+- scikit-learn
+- networkx
+- pytorch
+- pytorch_geometric
+- metabolinks
+- matplotlib
+- seaborn
+- dash
 
 #### Benchmark Datasets Required
 
